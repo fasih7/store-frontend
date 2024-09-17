@@ -1,0 +1,17 @@
+/* src/components/Login.css */
+
+.card {
+    border-radius: 10px;
+    background-color: #ffffff;
+ }
+ 
+ button {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+ }
+ 
+ button:hover {
+    background-color: #0056b3;
+ }
+ 

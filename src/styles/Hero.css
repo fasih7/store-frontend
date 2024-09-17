@@ -1,0 +1,56 @@
+.hero-section {
+    background-image: url('https://cdn.prod.website-files.com/605826c62e8de87de744596e/63f5e30a4d577354fdfce512_Duotone-Master-ssssFile-copy-p-1600.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    height: 90vh; /* Occupies 90% of the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    z-index: 2;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem; /* Larger title */
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #f8f9fa;
+  }
+  
+  .hero-buttons .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .hero-buttons .btn-outline-light {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    border-color: #ffffff;
+  }
+  
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay for better text readability */
+    z-index: 1;
+  }
+  

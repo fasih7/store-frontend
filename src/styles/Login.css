@@ -1,0 +1,23 @@
+.login-bg {
+    background: linear-gradient(135deg, #f0f0f0, #d0d0d0); /* Gradient gray background */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ 
+ .card {
+    border-radius: 10px;
+    background-color: #ffffff; /* White form background */
+ }
+ 
+ button {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+ }
+ 
+ button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+ }
+ 

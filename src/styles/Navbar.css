@@ -1,0 +1,39 @@
+.custom-navbar {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 1rem 2rem; /* Increased padding for a more spacious look */
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.8rem; /* Larger brand name */
+    color: #007bff !important;
+  }
+  
+  .custom-nav {
+    margin-left: 50px; /* Move nav items closer to the left */
+  }
+  
+  .nav-link-custom {
+    font-size: 1.3rem; /* Larger font size for nav items */
+    color: #343a40 !important;
+    margin-right: 20px; /* Increased space between links */
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .nav-link-custom:hover {
+    color: #007bff !important;
+    background-color: rgba(0, 123, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  .btn-signin {
+    font-size: 1.1rem; /* Larger font for the button */
+    padding: 0.5rem 1.5rem; /* Larger button padding */
+  }
+  
+  .btn-signin:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
