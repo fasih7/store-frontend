@@ -22,6 +22,7 @@ const LoginModal = () => {
       console.error(error);
     }
   };
+
   return (
     <>
       <Button
@@ -31,10 +32,11 @@ const LoginModal = () => {
       >
         Login
       </Button>
+
       <Modal show={show} onHide={handleClose} centered>
         <div
           className="card shadow-2-strong"
-          style={{ backgroundColor: "#c5c4bd" }}
+          style={{ backgroundColor: "#ebedf3" }}
         >
           <div className="card-body p-5 text-center">
             <button
@@ -72,38 +74,40 @@ const LoginModal = () => {
                   />
                 </Form.Group>
               </div>
+
+              {/* Forgot Password Link */}
+              <div className="d-flex justify-content-end mb-4">
+                <a href="/forgot-password" className="link-primary">
+                  Forgot Password?
+                </a>
+              </div>
+
               <Button
                 variant="primary"
                 size="lg"
-                className="w-100"
+                className="w-100 mb-3"
                 type="submit"
-                // onClick={handleSubmit}
               >
                 Login
               </Button>
             </Form>
-            {/* Checkbox */}
-            {/* TODO: */}
-            {/* <div className="form-check d-flex justify-content-start mb-4">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="form1Example3"
-              />
-              <label className="form-check-label" htmlFor="form1Example3">
-                Remember password
-              </label>
-            </div> */}
+
+            {/* Don't have an account */}
+            <div className="mb-3">
+              <span>Don't have an account?</span>{" "}
+              <a href="/sign-up" className="link-primary">
+                Sign up
+              </a>
+            </div>
 
             <hr className="my-4" />
 
             <Button
               variant="secondary"
               size="lg"
-              className="w-100"
-              type="submit"
-              style={{ backgroundColor: "#dd4b39", marginBottom: "5px" }}
+              className="w-100 mb-3"
+              type="button"
+              style={{ backgroundColor: "#dd4b39" }}
             >
               <i className="fab fa-google me-2"></i> Sign in with Google
             </Button>
@@ -112,7 +116,7 @@ const LoginModal = () => {
               variant="secondary"
               size="lg"
               className="w-100"
-              type="submit"
+              type="button"
               style={{ backgroundColor: "#3b5998" }}
             >
               <i className="fab fa-facebook-f me-2"></i> Sign in with Facebook

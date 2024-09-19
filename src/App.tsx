@@ -11,6 +11,7 @@ import ProductCard2 from "./components/ProductCard2";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import LoginModal from "./components/LoginModal";
+import SignUp from "./pages/Signup";
 
 //TODO: uninstall saas | @fortawesome/fontawesome-free
 
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
           {/* <Route path="/" element={<HomePage />} /> */}
           {/* <Route path="/login" element={<LoginPage />} /> */}
           {/* <Route path="/products" element={<ProductsPage />} /> */}
