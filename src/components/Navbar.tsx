@@ -12,7 +12,11 @@ const MyNavbar = () => {
     <Navbar bg="light" expand="lg" className="custom-navbar sticky-top">
       <Container>
         <Navbar.Brand href="/" className="navbar-brand">
-          MyStore
+          <img
+            src={`${process.env.PUBLIC_URL}/espar.png`}
+            alt="Logo"
+            style={{ height: "100%", maxHeight: "50px", width: "auto" }}
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
