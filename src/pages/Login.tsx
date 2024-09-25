@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { Container, Form, Button, Card, Col, Row } from "react-bootstrap";
 import "../styles/Login.css";
-import { loginUser } from "../api/auth.gateway";
+import authService from "../domain/services/auth.service";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await loginUser({ email, password });
+      const response = await authService.login(email, password);
       const { access_token } = response;
       login(access_token);
     } catch (error) {

@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { Modal, Button, Form } from "react-bootstrap";
 import "../styles/LoginModal.css";
 import { FaUserAlt } from "react-icons/fa";
-import { loginUser } from "../api/auth.gateway";
+import authService from "../domain/services/auth.service";
 
 const LoginModal2 = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const LoginModal2 = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await loginUser({ email, password });
+      const response = await authService.login(email, password);
       const { access_token } = response;
       login(access_token);
     } catch (error) {
