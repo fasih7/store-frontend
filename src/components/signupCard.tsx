@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Button, Form, Row, Col, Card, Modal } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import authService from "../domain/services/auth.service";
 import VerificationModal from "./VerificationModal";
+import InfoModel from "../shared/components/infoModal";
 
 export const SignUpCard = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,7 +10,10 @@ export const SignUpCard = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [showCodeModal, setShowCodeModal] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("Something Went Wrong");
+
+  const [showCodeModal, setShowCodeModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
 
   const handleClose = () => setShowCodeModal(false);
 
@@ -21,7 +25,16 @@ export const SignUpCard = () => {
       email,
       password,
     });
-    if (response.success || response.error) setShowCodeModal(true);
+
+    if (response.error) {
+      const errorMessage =
+        response.error.error === "11000"
+          ? "User with this email already exist. Try to login or use different email"
+          : "Something went wrong";
+      setErrorMessage(errorMessage);
+      setShowInfoModal(true);
+    }
+    if (response.success) setShowCodeModal(true);
   };
 
   return (
@@ -81,6 +94,12 @@ export const SignUpCard = () => {
         showCodeModal={showCodeModal}
         email={email}
         handleClose={handleClose}
+      />
+      <InfoModel
+        showModal={showInfoModal}
+        message={errorMessage}
+        type="error"
+        handleClose={() => setShowInfoModal(false)}
       />
     </>
   );
