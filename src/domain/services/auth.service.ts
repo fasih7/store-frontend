@@ -16,6 +16,10 @@ class AuthService extends AxiosClient {
     const response = this.post(url, { email, password });
     return response;
   }
+
+  async verifyToken(email: string, token: string) {
+    const url = "/auth/verify";
+  }
 }
 
 export default new AuthService();
