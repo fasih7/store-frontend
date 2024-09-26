@@ -8,12 +8,16 @@ export class AxiosClient {
         `${process.env.REACT_APP_BACKEND_BASE_URL}${url}`,
         body
       );
-
       return response.data;
     } catch (error: any) {
-      console.log(error.code);
-
-      return { error: { code: error.code, message: error.message } };
+      return { error: error.response.data };
     }
+  }
+
+  async get(url: string) {
+    const result = await axios.get(
+      `${process.env.REACT_APP_BACKEND_BASE_URL}${url}`
+    );
+    return result.data;
   }
 }
