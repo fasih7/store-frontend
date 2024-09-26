@@ -15,29 +15,28 @@ const InfoModel = ({
   type,
   handleClose,
 }: InfoModalProps) => {
-  //   const handleLogin = async () => {
-  //     try {
-  //       const response = await fetch('/api/login', { /* login logic */ });
-
-  //       if (response.ok) {
-  //         setModalMessage('Login successful!');
-  //         setModalType('success');
-  //       } else {
-  //         throw new Error('Login failed');
-  //       }
-  //     } catch (err) {
-  //       setModalMessage(err.message || 'Something went wrong!');
-  //       setModalType('error');
-  //     }
-  //     setShowModal(true);
-  //   };
-
   return (
     <Modal show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{type === "success" ? "Success" : "Error"}</Modal.Title>
+        <Modal.Title>
+          {type === "success" ? (
+            <>
+              <i className="fas fa-check-circle text-success me-2"></i>
+              Success
+            </>
+          ) : (
+            <>
+              <i className="fas fa-exclamation-triangle text-danger me-2"></i>
+              Error
+            </>
+          )}
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{message}</Modal.Body>
+      <Modal.Body
+        className={type === "success" ? "text-success" : "text-danger"}
+      >
+        {message}
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close

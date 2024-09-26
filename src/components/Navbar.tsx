@@ -2,7 +2,7 @@ import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUserAlt, FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import LoginModal2 from "./LoginModal2";
+import LoginModal2 from "./temp/LoginModal2";
 import LoginModal from "./LoginModal";
 
 const MyNavbar = () => {

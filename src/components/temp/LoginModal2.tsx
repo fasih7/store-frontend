@@ -1,11 +1,11 @@
 // src/components/LoginModal.tsx
 import React, { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { Modal, Button, Form } from "react-bootstrap";
 import "../styles/LoginModal.css";
 import { FaUserAlt } from "react-icons/fa";
-import authService from "../domain/services/auth.service";
+import authService from "../../domain/services/auth.service";
 
 const LoginModal2 = () => {
   const [email, setEmail] = useState("");
