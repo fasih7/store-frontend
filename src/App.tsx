@@ -9,9 +9,10 @@ import Footer from "./components/Footer";
 // import ProductCard1 from "./components/temp/ProductCard1";
 // import ProductCard2 from "./components/temp/ProductCard2";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
 // import LoginModal from "./components/LoginModal";
 import SignUp from "./pages/Signup";
+import NotFound from "./pages/NotFound";
 
 //TODO: uninstall saas | @fortawesome/fontawesome-free
 
@@ -22,11 +23,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          {/* <Route path="/" element={<HomePage />} /> */}
-          {/* <Route path="/login" element={<LoginPage />} /> */}
-          {/* <Route path="/products" element={<ProductsPage />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
       <Footer />
