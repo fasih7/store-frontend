@@ -9,6 +9,7 @@ import React, {
 
 interface AuthContextType {
   user: string | null;
+  isAuthenticated: boolean;
   login: (access_token: string) => void;
   logout: () => void;
 }
@@ -16,6 +17,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<string | null>(null);
 
   const login = (access_token: string) => {
@@ -33,13 +35,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedToken = localStorage.getItem("access_token");
     if (storedToken) {
       setUser(storedToken);
+      setIsAuthenticated(true);
       //   const decodedToken = jwt_decode<{ email: string }>(storedToken);
       //   setEmail(decodedToken.email);
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

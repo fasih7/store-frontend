@@ -7,6 +7,7 @@ type InfoModalProps = {
   message: string;
   type: "success" | "error";
   handleClose: () => any;
+  primaryButton?: { value: string; handleClick: () => any };
 };
 
 const InfoModel = ({
@@ -14,9 +15,10 @@ const InfoModel = ({
   message,
   type,
   handleClose,
+  primaryButton,
 }: InfoModalProps) => {
   return (
-    <Modal show={showModal} onHide={handleClose}>
+    <Modal show={showModal} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>
           {type === "success" ? (
@@ -32,15 +34,16 @@ const InfoModel = ({
           )}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body
-        className={type === "success" ? "text-success" : "text-danger"}
-      >
-        {message}
-      </Modal.Body>
+      <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
+        {primaryButton && (
+          <Button variant="primary" onClick={primaryButton.handleClick}>
+            {primaryButton.value}
+          </Button>
+        )}
       </Modal.Footer>
     </Modal>
   );

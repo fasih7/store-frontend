@@ -1,12 +1,15 @@
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUserAlt, FaHome } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import LoginModal2 from "./temp/LoginModal2";
 import LoginModal from "./LoginModal";
 
 const MyNavbar = () => {
   const { user, logout } = useAuth();
+  const location = useLocation();
+
+  const isAuthPage = location.pathname === "/sign-up";
 
   return (
     <Navbar bg="light" expand="lg" className="custom-navbar sticky-top">
@@ -35,9 +38,9 @@ const MyNavbar = () => {
             </Nav.Link>
             <Nav.Link>{user && <FaUserAlt className="me-2" />}</Nav.Link>
           </Nav>
-          {!user ? (
+          {!user && !isAuthPage ? (
             <LoginModal />
-          ) : (
+          ) : user ? (
             <Button
               onClick={() => {
                 logout();
@@ -45,7 +48,7 @@ const MyNavbar = () => {
             >
               Logout
             </Button>
-          )}
+          ) : null}
         </Navbar.Collapse>
       </Container>
     </Navbar>

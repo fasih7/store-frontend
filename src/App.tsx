@@ -13,17 +13,25 @@ import Home from "./pages/Home";
 // import LoginModal from "./components/LoginModal";
 import SignUp from "./pages/Signup";
 import NotFound from "./pages/NotFound";
+import PublicRoute from "./components/auth/PublicRoute";
 
 //TODO: uninstall saas | @fortawesome/fontawesome-free
 
 function App() {
   return (
     <>
-      <MyNavbar />
       <BrowserRouter>
+        <MyNavbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route
+            path="/sign-up"
+            element={
+              <PublicRoute>
+                <SignUp />
+              </PublicRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

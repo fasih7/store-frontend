@@ -5,11 +5,6 @@ import InfoModel from "../shared/components/infoModal";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-interface VerificationModalProps {
-  showCodeModal: boolean;
-  email: string;
-}
-
 const VerificationModal: React.FC<any> = ({
   showCodeModal,
   email,
@@ -43,8 +38,13 @@ const VerificationModal: React.FC<any> = ({
     }
   };
 
-  const handleResendVerificationToken = () => {
-    console.log(handleResendVerificationToken.name);
+  const handleResendVerificationToken = async () => {
+    const response = await authService.resendVerificationToken(email);
+    if (response.success) setCode("");
+    if (response.error) {
+      setErrorMessage(response.error.message);
+      setShowInfoModal(true);
+    }
   };
 
   //   {
@@ -98,12 +98,13 @@ const VerificationModal: React.FC<any> = ({
             <span className="d-block mobile-text text-muted">
               Didn't receive the code?
             </span>
-            <span
+            <button
               className="font-weight-bold text-danger cursor-pointer"
+              style={{ border: "none" }}
               onClick={handleResendVerificationToken}
             >
               Resend
-            </span>
+            </button>
           </div>
         </div>
       </Modal>
