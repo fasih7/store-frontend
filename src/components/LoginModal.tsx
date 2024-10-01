@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import authService from "../domain/services/auth.service";
+import InfoModel from "../shared/components/infoModal";
+import VerificationModal from "./VerificationModal";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
@@ -9,18 +11,59 @@ const LoginModal = () => {
   const { login } = useAuth();
   const [show, setShow] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState("Something Went Wrong");
+  const [showCodeModal, setShowCodeModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [primaryResendVerification, setPrimaryResendVerification] =
+    useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await authService.login(email, password);
+    const response = await authService.login(email, password);
+    console.log({ responseWala: response });
+
+    if (response.access_token) {
       const { access_token } = response;
       login(access_token);
-    } catch (error) {
-      console.error(error);
+      // setShow(false);
     }
+
+    if (response.error) {
+      const errorMessage =
+        response.error.error === "pendingVerification"
+          ? response.error.message
+          : "Something went wrong";
+
+      // If error is pending verification, show Resend button
+      if (response.error.error === "pendingVerification") {
+        setPrimaryResendVerification(true);
+      } else {
+        setPrimaryResendVerification(false);
+      }
+
+      setErrorMessage(errorMessage);
+      setShow(false);
+      setShowInfoModal(true);
+    }
+  };
+
+  // Function to handle resending verification email
+  const handleResendVerification = async () => {
+    const response = await authService.resendVerificationToken(email);
+
+    if (response.success) {
+      setShowCodeModal(true);
+      setPrimaryResendVerification(false);
+    }
+    if (response.error) {
+      setShowInfoModal(true);
+      setErrorMessage(response.error?.message);
+    }
+    setShowInfoModal(false);
+    setPrimaryResendVerification(false);
   };
 
   return (
@@ -124,6 +167,27 @@ const LoginModal = () => {
           </div>
         </div>
       </Modal>
+      <VerificationModal
+        showCodeModal={showCodeModal}
+        email={email}
+        handleClose={() => {
+          setShowCodeModal(false);
+        }}
+      />
+      <InfoModel
+        showModal={showInfoModal}
+        message={errorMessage}
+        type="error"
+        handleClose={() => setShowInfoModal(false)}
+        primaryButton={
+          primaryResendVerification
+            ? {
+                value: "Resend Verification",
+                handleClick: handleResendVerification,
+              }
+            : undefined
+        }
+      />
     </>
   );
 };

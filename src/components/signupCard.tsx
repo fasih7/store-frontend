@@ -9,9 +9,9 @@ export const SignUpCard = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [primaryResendVerification, setPrimaryResendVerification] =
+    useState(false);
   const [errorMessage, setErrorMessage] = useState("Something Went Wrong");
-
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -30,11 +30,32 @@ export const SignUpCard = () => {
       const errorMessage =
         response.error.error === "11000"
           ? "User with this email already exist. Try to login or use different email"
+          : response.error.error === "pendingVerification"
+          ? response.error.message
           : "Something went wrong";
+
+      // If error is pending verification, show Resend button
+      if (response.error.error === "pendingVerification") {
+        setPrimaryResendVerification(true);
+      } else {
+        setPrimaryResendVerification(false);
+      }
+
       setErrorMessage(errorMessage);
       setShowInfoModal(true);
     }
     if (response.success) setShowCodeModal(true);
+  };
+
+  // Function to handle resending verification email
+  const handleResendVerification = async () => {
+    const response = await authService.resendVerificationToken(email);
+    if (response.success) {
+      setShowCodeModal(true);
+      setPrimaryResendVerification(false);
+    } else setShowInfoModal(true);
+    setShowInfoModal(false);
+    setPrimaryResendVerification(false);
   };
 
   return (
@@ -100,6 +121,14 @@ export const SignUpCard = () => {
         message={errorMessage}
         type="error"
         handleClose={() => setShowInfoModal(false)}
+        primaryButton={
+          primaryResendVerification
+            ? {
+                value: "Resend Verification",
+                handleClick: handleResendVerification,
+              }
+            : undefined
+        }
       />
     </>
   );

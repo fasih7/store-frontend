@@ -22,6 +22,12 @@ class AuthService extends AxiosClient {
     const response = this.post(url, { email, token });
     return response;
   }
+
+  async resendVerificationToken(email: string) {
+    const url = "/auth/resend-token";
+    const response = this.post(url, { email });
+    return response;
+  }
 }
 
 export default new AuthService();

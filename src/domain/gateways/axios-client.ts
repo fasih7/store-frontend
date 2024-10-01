@@ -10,14 +10,20 @@ export class AxiosClient {
       );
       return response.data;
     } catch (error: any) {
-      return { error: error.response.data };
+      if (error.response) return { error: error.response.data };
+      return error;
     }
   }
 
   async get(url: string) {
-    const result = await axios.get(
-      `${process.env.REACT_APP_BACKEND_BASE_URL}${url}`
-    );
-    return result.data;
+    try {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_BASE_URL}${url}`
+      );
+      return result.data;
+    } catch (error: any) {
+      if (error.response) return { error: error.response.data };
+      return error;
+    }
   }
 }

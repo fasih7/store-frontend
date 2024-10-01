@@ -18,7 +18,7 @@ const NotFound = () => {
             <div className="mb-4 lead">
               The page you are looking for was not found.
             </div>
-            <a href="https://www.totoprayogo.com/#" className="btn btn-link">
+            <a href="/" className="btn btn-link">
               Back to Home
             </a>
           </div>
