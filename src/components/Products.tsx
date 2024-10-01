@@ -9,7 +9,7 @@ import {
 } from "../api/products-gateway";
 
 const Products: React.FC = () => {
-  const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+  const [featuredProducts, setFeaturedProducts] = useState<any[] | "error">([]);
   const [recentlyAddedProducts, setRecentlyAddedProducts] = useState<any[]>([]);
   const [bestSellingProducts, setBestSellingProducts] = useState<any[]>([]);
 
@@ -18,17 +18,28 @@ const Products: React.FC = () => {
       const featuredProductsP = getFeaturedProducts();
       const recentlyAddedProductsP = getRecentlyAddedProducts();
       const bestSellingProductsP = getProducts({ limit: 4 });
-      const [featuredProducts, recentlyAddedProducts, bestSellingProducts] =
-        await Promise.all([
-          featuredProductsP,
-          recentlyAddedProductsP,
-          bestSellingProductsP,
-        ]);
-      console.log(bestSellingProducts.data);
 
-      setFeaturedProducts(featuredProducts.products);
-      setRecentlyAddedProducts(recentlyAddedProducts);
-      setBestSellingProducts(bestSellingProducts.data);
+      const results = await Promise.allSettled([
+        featuredProductsP,
+        recentlyAddedProductsP,
+        bestSellingProductsP,
+      ]);
+
+      // Destructure results
+      const [
+        featuredProductsResult,
+        recentlyAddedProductsResult,
+        bestSellingProductsResult,
+      ] = results;
+
+      featuredProductsResult.status === "fulfilled" &&
+        setFeaturedProducts(featuredProductsResult.value.products);
+
+      recentlyAddedProductsResult.status === "fulfilled" &&
+        setRecentlyAddedProducts(recentlyAddedProductsResult.value);
+
+      bestSellingProductsResult.status === "fulfilled" &&
+        setBestSellingProducts(bestSellingProductsResult.value.data);
     };
     fetchProducts();
   }, []);
@@ -39,9 +50,11 @@ const Products: React.FC = () => {
         <Container>
           <h2 className="section-title">Featured Products</h2>
           <Row>
-            {featuredProducts.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
+            {featuredProducts === "error"
+              ? "No products Found"
+              : featuredProducts.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
           </Row>
         </Container>
       </section>
